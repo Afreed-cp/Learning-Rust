@@ -1,4 +1,4 @@
-use std::{io, u32};
+use std::{cmp::Ordering, io, u32};
 
 use rand::{Rng};
 
@@ -17,7 +17,9 @@ fn main() {
 
     let parsed_guess : u32 = guess.trim().parse::<u32>().expect("Failed to parse your guess");
 
-    println!("{}", if secret_num == parsed_guess {"You are right"} else {"You are wrong"});
-
-    println!("Your guess : {0} , Answer : {1}", guess, secret_num);
+    match parsed_guess.cmp(&secret_num) {
+        Ordering::Less => println!("Too small!"),
+        Ordering::Greater => println!("Too big"),
+        Ordering::Equal => println!("You win"),
+    }
 }
