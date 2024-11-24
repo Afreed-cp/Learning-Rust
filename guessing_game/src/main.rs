@@ -4,12 +4,14 @@ use rand::Rng;
 
 fn main() {
     println!("Guess the number!");
-    println!("Input your guess");
-
+   
     let secret_num: u32 = rand::thread_rng().gen_range(1..=10);
 
-    loop {
+    'guess_tries: loop {
+        println!("Input your guess");
+
         let mut guess = String::new();
+
         io::stdin()
             .read_line(&mut guess)
             .expect("Failed to read line");
@@ -24,7 +26,7 @@ fn main() {
             Ordering::Greater => println!("Too big"),
             Ordering::Equal => {
                 println!("You win");
-                break;
+                break 'guess_tries;
             }
         }
     }
